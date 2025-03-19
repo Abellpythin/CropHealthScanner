@@ -11,9 +11,9 @@ def generate_qr_code(url):
     """Generate QR code for the given URL"""
     qr = qrcode.QRCode(
         version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,  # Higher error correction
+        box_size=12,  # Larger box size
+        border=5,
     )
     qr.add_data(url)
     qr.make(fit=True)
@@ -26,8 +26,10 @@ def main():
     # Add QR code in sidebar
     st.sidebar.title("Share Application")
     if st.sidebar.button("Generate QR Code"):
-        # Get the current URL
-        qr_image = generate_qr_code(st.experimental_get_query_params().get("url", ["https://replit.app"])[0])
+        # Use the actual Replit app URL
+        app_url = "https://" + st.request.host
+        qr_image = generate_qr_code(app_url)
+
         # Convert PIL image to bytes
         img_byte_arr = io.BytesIO()
         qr_image.save(img_byte_arr, format='PNG')
