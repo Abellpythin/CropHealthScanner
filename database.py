@@ -7,8 +7,11 @@ import os
 # Get database URL from environment
 DATABASE_URL = os.getenv('DATABASE_URL')
 
-# Create database engine
-engine = create_engine(DATABASE_URL)
+# Create database engine with SSL disabled for development
+engine = create_engine(
+    DATABASE_URL,
+    connect_args={'sslmode': 'disable'}  # Disable SSL for development
+)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Create declarative base
