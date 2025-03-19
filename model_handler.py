@@ -16,33 +16,41 @@ DISEASE_CLASSES = [
 
 def initialize_model():
     """
-    Initialize the model with some basic parameters
-    Note: In a production environment, this would load a pre-trained model
+    Initialize the machine learning model for disease classification.
+
+    Note:
+    - Currently uses a basic RandomForest classifier
+    - In production, replace with a properly trained model
+    - Model parameters can be tuned based on specific requirements
     """
-    # For demonstration, we're using a simple random forest
-    # This should be replaced with a properly trained model in production
     global model
     model = RandomForestClassifier(n_estimators=100, random_state=42)
-    
+
     # In production, you would load actual trained weights here
     # model.load_weights('path_to_weights')
 
 def predict_disease(processed_image):
     """
-    Predict the disease from the processed image
+    Predict the disease from the processed image.
+
+    Args:
+        processed_image (numpy.ndarray): Preprocessed image array
+
+    Returns:
+        tuple: (predicted_disease, confidence_score)
+
+    Note:
+    Current implementation uses simulated predictions.
+    Replace with actual model predictions in production.
     """
     # Extract features from the image
     features = extract_features(processed_image)
-    
+
     # Reshape features for prediction
     features = features.reshape(1, -1)
-    
-    # In a real implementation, this would use the actual trained model
-    # For now, we'll return a simplified prediction
-    # This should be replaced with actual model prediction in production
-    
+
     # Simulate prediction (remove in production)
     prediction_idx = np.random.randint(0, len(DISEASE_CLASSES))
     confidence = np.random.uniform(70, 95)
-    
+
     return DISEASE_CLASSES[prediction_idx], confidence

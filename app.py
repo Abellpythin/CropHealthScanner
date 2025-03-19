@@ -7,6 +7,18 @@ from model_handler import predict_disease
 from utils import get_treatment_recommendations
 
 def main():
+    """
+    Main application function that handles the Streamlit interface.
+
+    Features:
+    - Image upload interface
+    - Disease diagnosis processing
+    - Results display
+    - Treatment recommendations
+
+    Usage:
+    Run the application using: streamlit run app.py --server.port 5000
+    """
     st.title("Crop Disease Diagnosis Tool")
 
     st.write("""
