@@ -26,9 +26,8 @@ def main():
     # Add QR code in sidebar
     st.sidebar.title("Share Application")
     if st.sidebar.button("Generate QR Code"):
-        # Use the actual Replit app URL
-        app_url = "https://" + st.request.host
-        qr_image = generate_qr_code(app_url)
+        # Use a direct app URL
+        qr_image = generate_qr_code("https://crop-disease-diagnosis.replit.app")
 
         # Convert PIL image to bytes
         img_byte_arr = io.BytesIO()
