@@ -2,10 +2,10 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from image_processor import extract_features
 
-# Initialize a basic model
+# Initialize classifier
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 
-# Predefined classes for common crop diseases
+# Define disease classes
 DISEASE_CLASSES = [
     "Healthy",
     "Leaf Blight",
@@ -16,33 +16,29 @@ DISEASE_CLASSES = [
 
 def initialize_model():
     """
-    Initialize the model with some basic parameters
-    Note: In a production environment, this would load a pre-trained model
+    Initialize the model with basic parameters
+    Note: In production, this would load a pre-trained model
     """
-    # For demonstration, we're using a simple random forest
-    # This should be replaced with a properly trained model in production
     global model
     model = RandomForestClassifier(n_estimators=100, random_state=42)
-    
-    # In production, you would load actual trained weights here
-    # model.load_weights('path_to_weights')
+    # In production: model.load_weights('path_to_weights')
 
 def predict_disease(processed_image):
     """
     Predict the disease from the processed image
+    Args:
+        processed_image: Numpy array of processed image
+    Returns:
+        prediction: String name of predicted disease
+        confidence: Float confidence score
     """
-    # Extract features from the image
+    # Extract image features
     features = extract_features(processed_image)
-    
-    # Reshape features for prediction
     features = features.reshape(1, -1)
-    
-    # In a real implementation, this would use the actual trained model
-    # For now, we'll return a simplified prediction
-    # This should be replaced with actual model prediction in production
-    
-    # Simulate prediction (remove in production)
+
+    # For demonstration: simulate prediction
+    # In production, this would use actual model prediction
     prediction_idx = np.random.randint(0, len(DISEASE_CLASSES))
     confidence = np.random.uniform(70, 95)
-    
+
     return DISEASE_CLASSES[prediction_idx], confidence

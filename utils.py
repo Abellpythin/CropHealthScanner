@@ -1,6 +1,10 @@
 def get_treatment_recommendations(disease):
     """
     Get treatment recommendations based on the diagnosed disease
+    Args:
+        disease: String name of the detected disease
+    Returns:
+        list: List of treatment recommendations
     """
     # Treatment recommendations database
     treatments = {
@@ -34,7 +38,8 @@ def get_treatment_recommendations(disease):
             "Rotate crops in future seasons"
         ]
     }
-    
+
+    # Return recommendations or default advice if disease not found
     return treatments.get(disease, [
         "Consult an agricultural expert",
         "Monitor plant condition",
