@@ -2,12 +2,44 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 import io
+import qrcode
 from image_processor import process_image
 from model_handler import predict_disease
 from utils import get_treatment_recommendations
 
+def generate_qr_code(url):
+    """Generate QR code for the given URL"""
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(url)
+    qr.make(fit=True)
+    qr_image = qr.make_image(fill_color="black", back_color="white")
+    return qr_image
+
 def main():
     st.title("Crop Disease Diagnosis Tool")
+
+    # Add QR code in sidebar
+    st.sidebar.title("Share Application")
+    if st.sidebar.button("Generate QR Code"):
+        # Get the current URL
+        qr_image = generate_qr_code(st.experimental_get_query_params().get("url", ["https://replit.app"])[0])
+        # Convert PIL image to bytes
+        img_byte_arr = io.BytesIO()
+        qr_image.save(img_byte_arr, format='PNG')
+        img_byte_arr = img_byte_arr.getvalue()
+
+        st.sidebar.image(img_byte_arr, caption="Scan this QR code to access the app", use_container_width=True)
+        st.sidebar.download_button(
+            label="Download QR Code",
+            data=img_byte_arr,
+            file_name="crop_diagnosis_app_qr.png",
+            mime="image/png"
+        )
 
     st.write("""
     Upload a photo of your crop to get instant disease diagnosis and treatment recommendations.
